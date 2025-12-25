@@ -4223,6 +4223,8 @@ def learning (ex, sym, tf):
 #main_funding('ZIL',30)
 #learning('bitkub', 'ZIL', '1d')
 
+print("...Test update", flush=True)
+
 tx = 3
 input_sym = ['ZIL', 'BTC']
 input_bitkub_tf = ['1w','1D',240,60,30,15]
