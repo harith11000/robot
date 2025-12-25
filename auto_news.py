@@ -16,7 +16,7 @@ import firebase_admin
 from firebase_admin import db, credentials
 from deep_translator import GoogleTranslator
 
-from ASetting import mark_city, access_token
+from main.ASetting import mark_city, access_token
 
 import random, time
 from selenium.webdriver.common.action_chains import ActionChains
@@ -79,7 +79,7 @@ def send_line_message(token, text):
 
 def make_old_kw(): #ถ้าเริ่มการ บันทึกไฟล์ไหม่ให้ รันไฟล์นี้
 
-    from ASetting import base_keywords
+    from main.ASetting import base_keywords
 
     try :
         #เขียน ลง text
