@@ -27,7 +27,7 @@ DEST_DIR = "/home/mir/robot"
 FILES = [
     "auto_news.py",
     "auto_momentum.py",
-    "ASetting.py",
+    "update.py",
     "main.py"
 ]
 
