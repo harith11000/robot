@@ -68,6 +68,8 @@ def next_time(t,text): #นำเข้าเป็นนาที
 
 def run(x): # 1.NEWS  2.MOMENTUM
 
+    update_files()
+
     try : 
 
         if x == 1 :
