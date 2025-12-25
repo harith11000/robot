@@ -34,7 +34,7 @@ from ASetting import macd_fast, macd_slow, macd_signal
 from ASetting import bb_1length, bb_1std, bb_2length, bb_2std
 from ASetting import sto_length, sto_rsi_length, sto_k, sto_d, sto_up, sto_down 
 from ASetting import bitkub_ema_set,binance_ema_set
-from ASetting import bitkub_symbol_setting, binance_symbol_setting, no_candles, total_learning_candles, w_avg_close, w_limit_rate_close_bit_bin, w_limit_diff_future_spot_vol, no_heiken, observation_cand, mode_order_block, no_order_block, auto_tl, predict_semi, fillter_vol, economic_set, add_economic_set, trand_bar_pattern
+from ASetting import bitkub_symbol_setting, binance_symbol_setting, no_candles, total_funding, w_avg_close, w_limit_rate_close_bit_bin, w_limit_diff_future_spot_vol, no_heiken, observation_cand, mode_order_block, no_order_block, auto_tl, predict_semi, fillter_vol, economic_set, add_economic_set, trand_bar_pattern
 from ASetting import broker_pair_value, access_token
 from ASetting import bitkub_tf_make_log,bitkub_keep_day_from_now
 
@@ -3938,7 +3938,7 @@ def main_future(sym, tf, limit):
 
     close_s = (sum(float(row[4]) for row in get_spot[-last_arr_mark:])) / last_arr_mark
     use_arr_analise[symtf]['last_spot_close'] = close_s
-    use_arr_analise[symtf]['avg_spot_price'] = sum( float(candles[4]) for candles in get_spot[-total_learning_candles:] ) / total_learning_candles
+    use_arr_analise[symtf]['avg_spot_price'] = sum( float(candles[4]) for candles in get_spot[-limit:] ) / limit
 
     close_f = (sum(float(row[4]) for row in get_future[-last_arr_mark:])) / last_arr_mark
     use_arr_analise[symtf]['last_future_close'] = close_f
@@ -4231,7 +4231,7 @@ tf_bit_to_bin = { '1w':'1w', '1D':'1d', 240:'4h', 60:'1h',30:'30m', 15:'15m'}
 
 for sym in input_sym :
 
-    main_funding(sym, total_learning_candles)
+    main_funding(sym, total_funding)
 
     for tf in input_bitkub_tf :
 
@@ -4240,7 +4240,7 @@ for sym in input_sym :
 
         if tf != '1w' :
             
-            main_future(sym, tf_bit_to_bin[tf], total_learning_candles)
+            main_future(sym, tf_bit_to_bin[tf], no_candles)
             learning('bitkub', sym, tf)
             
             #เก็บเฉพาะ funding
@@ -4256,7 +4256,8 @@ for sym in input_sym :
         time.sleep(tx)
 
         if tf != '1w' :
-            main_future(sym, tf, total_learning_candles)
+
+            main_future(sym, tf, no_candles)
             learning('binance', sym, tf)
             
             #เก็บเฉพาะ funding
