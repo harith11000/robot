@@ -23,22 +23,22 @@ def update_files():
         "ASetting.py",
         "main.py"]
     
-    try:
-        #print("...Updating 4 files from GitHub...", flush=True)
-        for f in FILES_TO_UPDATE:
-            subprocess.run(
-                ["git", "-C", REPO_DIR, "fetch", "origin", "main"],
-                check=True
-            )
-            subprocess.run(
-                ["git", "-C", REPO_DIR, "checkout", f"origin/main", "--", f],
-                check=True
-            )
-        print("...Files updated successfully...", flush=True)
+    #try:
+    #print("...Updating 4 files from GitHub...", flush=True)
+    for f in FILES_TO_UPDATE:
+        subprocess.run(
+            ["git", "-C", REPO_DIR, "fetch", "origin", "main"],
+            check=True
+        )
+        subprocess.run(
+            ["git", "-C", REPO_DIR, "checkout", f"origin/main", "--", f],
+            check=True
+        )
+    print("...Files updated successfully...", flush=True)
 
-    except Exception as e:
-        #print(f"...Update files failed: {e}", flush=True)
-        send_line_message(access_token, "...ROBOT: update files failed...")
+    #except Exception as e:
+    #    #print(f"...Update files failed: {e}", flush=True)
+    #    send_line_message(access_token, "...ROBOT: update files failed...")
 
 
 def send_line_message(token, text):
