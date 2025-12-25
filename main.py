@@ -34,7 +34,7 @@ def update_files():
                 ["git", "-C", REPO_DIR, "checkout", f"origin/main", "--", f],
                 check=True
             )
-        #print("...Files updated successfully...", flush=True)
+        print("...Files updated successfully...", flush=True)
 
     except Exception as e:
         #print(f"...Update files failed: {e}", flush=True)
