@@ -12,35 +12,6 @@ from ASetting import access_token
 #ให้ปริ้นออก log
 sys.stdout.reconfigure(line_buffering=True)
 
-
-
-def update_files():
-
-    REPO_DIR = "/home/mir/robot"
-    FILES_TO_UPDATE = [
-        "auto_news.py",
-        "auto_momentum.py",
-        "ASetting.py",
-        "main.py"]
-    
-    #try:
-    #print("...Updating 4 files from GitHub...", flush=True)
-    for f in FILES_TO_UPDATE:
-        subprocess.run(
-            ["git", "-C", REPO_DIR, "fetch", "origin", "main"],
-            check=True
-        )
-        subprocess.run(
-            ["git", "-C", REPO_DIR, "checkout", f"origin/main", "--", f],
-            check=True
-        )
-    print("...Files updated successfully...", flush=True)
-
-    #except Exception as e:
-    #    #print(f"...Update files failed: {e}", flush=True)
-    #    send_line_message(access_token, "...ROBOT: update files failed...")
-
-
 def send_line_message(token, text):
     url = "https://api.line.me/v2/bot/message/broadcast"
 
@@ -68,18 +39,17 @@ def next_time(t,text): #นำเข้าเป็นนาที
 
 def run(x): # 1.NEWS  2.MOMENTUM
 
-    update_files()
-
     try : 
+
+        os.system('clear')
+        subprocess.run(["/home/mir/env/bin/python","-u", "/home/mir/robot/update_files.py"])
 
         if x == 1 :
             # รันสคริปต์ปกติ
-            os.system('clear')
             subprocess.run(["/home/mir/env/bin/python","-u", "/home/mir/robot/auto_news.py"])
         
     
         elif x == 2 :
-            os.system('clear')
             subprocess.run(["/home/mir/env/bin/python","-u", "/home/mir/robot/auto_momentum.py"])
             os.system('clear')
             next_time(10, '...Next LOOP in ')
