@@ -42,7 +42,7 @@ def run(x): # 1.NEWS  2.MOMENTUM
     try : 
 
         os.system('clear')
-        subprocess.run(["/home/mir/env/bin/python","-u", "/home/mir/robot/update_files.py"])
+        subprocess.run(["/home/mir/env/bin/python","-u", "/home/mir/robot/update.py"])
 
         if x == 1 :
             # รันสคริปต์ปกติ
