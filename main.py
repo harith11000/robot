@@ -200,6 +200,38 @@ def oled(power):
     oled.show()
 
 
+def oled_word(word):
+
+    # Very important... This lets py-gaugette 'know' what pins to use in order to reset the display
+    i2c = board.I2C()  # uses board.SCL and board.SDA
+    # i2c = board.STEMMA_I2C()  # For using the built-in STEMMA QT connector on a microcontroller
+
+    # Create the SSD1306 OLED class.
+    # The first two parameters are the pixel width and pixel height.
+    # Change these to the right size for your display!
+    oled = adafruit_ssd1306.SSD1306_I2C(128, 64, i2c)
+
+    # Note you can change the I2C address, or add a reset pin:
+    # oled = adafruit_ssd1306.SSD1306_I2C(128, 64, i2c, addr=0x3D, reset=RESET_PIN)
+
+    # Clear display.
+    oled.fill(0)
+    oled.show()
+
+    # Create blank image for drawing.
+    image = Image.new("1", (oled.width, oled.height))
+    draw = ImageDraw.Draw(image)
+
+    # Load a font in 2 different sizes.
+    font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 20)
+
+    draw.text((0, 0), word, font=font, fill=255)
+ 
+    # Display image
+    oled.image(image)
+    oled.show()
+
+
 def clear_oled():
     # Create the I2C interface.
     i2c = busio.I2C(SCL, SDA)
@@ -247,13 +279,14 @@ def run(x): # 1.NEWS  2.MOMENTUM
 
     
     elif status == False :
-        
+        oled_word("Power OFF")
+
         #สร้างไฟล์ว่า เกิดไฟดับขั้น
         thai_time = datetime.now().replace(microsecond=0)
         run_flag = open("/home/mir/robot/Black_out "+str(thai_time)+'.flag','w')
         run_flag.close()
 
-        clear_oled()
+        #clear_oled()
 
         print('...Service Disable', flush=True)
         os.system("sudo systemctl disable auto_mir.service")
@@ -262,6 +295,7 @@ def run(x): # 1.NEWS  2.MOMENTUM
         #os.system("sudo systemctl stop auto_mir.service")
 
         boot = 60
+        time.sleep(boot)
         print('...'+str(boot)+'s Systems will Shutdown', flush=True)
         #os.system("sudo shutdown -h +1") #delay เวลาปิดเครื่อง ตัวเลขข้างหลัง เอา 15/60=0.25
         os.system("sudo shutdown now")
