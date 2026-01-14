@@ -645,6 +645,7 @@ def main():
         print(f'......Open news', flush=True)
     
         #เฉพาะครั้งแรก
+        '''
         if frist == True :
 
             try :
@@ -662,7 +663,7 @@ def main():
             except : 
                 frist = False
                 pass
-
+        '''
  
         try : #linkไหนมีปัญหา / รอนานเกิน 120 ก็ข้ามไป
            
