@@ -401,11 +401,11 @@ def open_book(book_name) : #ฟังชั่นนี้นี้เอาใ�
 
 def get_data(driver, news_loop_round):
 
-    loading = True
+    loading_pass = False
 
     count_high = []
 
-    while loading == True :
+    for i in range(news_loop_round-1) :
         
         #region----------5------------เข้าถึงข้อมูล
 
@@ -440,7 +440,7 @@ def get_data(driver, news_loop_round):
         
         except :
             print(f'.........Bad Get news...', flush=True)
-            loading = False
+            #loading = False
             break
 
 
@@ -490,16 +490,14 @@ def get_data(driver, news_loop_round):
         #endregion     
 
 
-
-
         #region-----------------------หยุดเมื่อ loop ครบ ตามจำนวน รอบที่กำหนด
         #ออกจากloop จะไม่สามารถ เอาข่าวภายในวันแล้วออกได้เพราะ ข่าว มันไม่ได้เรียงลำดับเวลา
-        if news_loop_round  == 0 :
+        if i == news_loop_round-1  :
             print(f'......End setting page', flush=True)
+            loading_pass = True
             break
         #endregion
    
-
         #region-----------------------เลื่อนหน้าจอ ลงล่าง
         print(f'......Scroll news', flush=True)
         scroll_page_smooth(driver)
@@ -542,12 +540,7 @@ def get_data(driver, news_loop_round):
         #endregion
 
 
-        news_loop_round -= 1
-
-
-
-
-    return loading 
+    return loading_pass 
 
 def main():
 
