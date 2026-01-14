@@ -75,7 +75,7 @@ def send_line_message(token, text):
     }
 
     #ส่งข้อความ
-    #response = requests.post(url, headers=headers, data=json.dumps(payload))
+    response = requests.post(url, headers=headers, data=json.dumps(payload))
 
 def make_old_kw(): #ถ้าเริ่มการ บันทึกไฟล์ไหม่ให้ รันไฟล์นี้
 
@@ -407,10 +407,13 @@ def get_data(driver, news_loop_round):
 
     while loading == True :
         
-        #region---------------------ทำพฤติกรรมให้คล้ายมนุษย์
+        #region----------5------------เข้าถึงข้อมูล
 
+        print(f'......Get news', flush=True)
+        
         try :
-           
+
+            #---------------------------------ทำงานคล้าย มนุษย์
             # small mouse move (ActionChains)
             actions = ActionChains(driver)
             actions.move_by_offset(random.randint(10,300), random.randint(10,200)).perform()
@@ -420,8 +423,6 @@ def get_data(driver, news_loop_round):
             #เลื่อนจอเล็กน้อย
             scroll_page_smooth(driver, step=300, delay=random.uniform(1,2), max_scrolls=5)
             time.sleep(random.uniform(3,6))
-          
-            #---------------------------------------------
            
             #random เวลา เบรค
             time.sleep(random.uniform(2,5))
@@ -433,25 +434,15 @@ def get_data(driver, news_loop_round):
             #random เวลา เบรค
             time.sleep(random.uniform(2,5))
 
-        except :
-            pass
 
-
-        #endregion
-        
-        #region----------------------เข้าถึงข้อมูล
-
-        print(f'......Get news', flush=True)
-        
-        try :
-
-            # รอให้ FeedListItem อย่างน้อย 1 ข่าวโหลด
+            #---------------------------------รอให้ FeedListItem อย่างน้อย 1 ข่าวโหลด
             WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.CSS_SELECTOR, "li[data-testid='FeedListItem']")))
         
         except :
             print(f'.........Bad Get news...', flush=True)
             loading = False
             break
+
 
         # ดึงข่าวทั้งหมด            
         html = driver.execute_script("return document.body.innerHTML;")
@@ -496,17 +487,19 @@ def get_data(driver, news_loop_round):
 
         print(f'.........Good...', flush=True)
    
-        
-
         #endregion     
-        
+
+
+
+
         #region-----------------------หยุดเมื่อ loop ครบ ตามจำนวน รอบที่กำหนด
         #ออกจากloop จะไม่สามารถ เอาข่าวภายในวันแล้วออกได้เพราะ ข่าว มันไม่ได้เรียงลำดับเวลา
         if news_loop_round  == 0 :
             print(f'......End setting page', flush=True)
             break
-         #endregion
+        #endregion
    
+
         #region-----------------------เลื่อนหน้าจอ ลงล่าง
         print(f'......Scroll news', flush=True)
         scroll_page_smooth(driver)
@@ -548,7 +541,11 @@ def get_data(driver, news_loop_round):
 
         #endregion
 
+
         news_loop_round -= 1
+
+
+
 
     return loading 
 
@@ -645,14 +642,13 @@ def main():
         
         # ตั้งเวลาถ้าเว็บโหลดช้ากว่านี้จะ error
         driver.set_page_load_timeout(180)
-
         print(f'......Open news', flush=True)
     
-        try : #เปิดหน้าหลักก่อน
+        #เฉพาะครั้งแรก
+        if frist == True :
 
-            #เฉพาะครั้งแรก
-            if frist == True :
-                #เปิด เว็บหลัก ก่อนเข้าเว็บ
+            try :
+                #เปิด เว็บหลัก ก่อนเข้าเว็บ 
                 driver.get('https://www.reuters.com')
                 
                 time.sleep(random.uniform(7,15))
@@ -662,11 +658,12 @@ def main():
                 time.sleep(random.uniform(7, 15))
 
                 frist = False
-        
-        except : 
-            pass
+                
+            except : 
+                frist = False
+                pass
 
-
+ 
         try : #linkไหนมีปัญหา / รอนานเกิน 120 ก็ข้ามไป
            
             #เปิดเว็บ ตามลิ้ง
@@ -680,7 +677,7 @@ def main():
             # มีบางอย่างผิดพลาด
             else :
                 print(f'.........Stop by Verification Require LINE NOTICE', flush=True)
-                send_line_message(access_token,'.........Stop Auto_News by Verification Require')
+                #send_line_message(access_token,'.........Stop Auto_News by Verification Require')
                 break
         
         except :
@@ -843,7 +840,6 @@ def main():
             print(f'...Make flag_news', flush=True) 
             open(flag_news, "w").close() 
 
-#ให้ปริ้นออก log
 
 main()
 
