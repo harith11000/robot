@@ -535,8 +535,6 @@ def get_data(driver, news_loop_round):
                 else : # ถ้าความสูงเท่ากันกับครั้งที่แล้ว แสดงว่า / หน้าสุดท้ายแล้ว
                     break
             
-        
-
         #endregion
 
 
