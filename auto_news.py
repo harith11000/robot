@@ -670,6 +670,11 @@ def main():
             else :
                 print(f'.........Stop by Verification Require LINE NOTICE', flush=True)
                 #send_line_message(access_token,'.........Stop Auto_News by Verification Require')
+
+                if "linux" in this_system :
+                    print(f'...Make flag_news', flush=True) 
+                    open(flag_news, "w").close() 
+
                 break
         
         except :
