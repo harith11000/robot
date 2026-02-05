@@ -2555,8 +2555,7 @@ def main_momentum(ex,sym,dn,stop,tf,range_heatmap,period_ht,strength_ht):
         
         except : #สร้าง ฐานข้อมูล ใหม่
                       
-
-            wait_x = input(' ......Put enter to receive new Market')
+            wait_x = time.sleep(15)#input(' ......Put enter to receive new Market')
 
             #region ดึงข้อมูลมา แล้ว เขียนไฟล์ .csv
             
