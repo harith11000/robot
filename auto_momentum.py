@@ -2554,8 +2554,8 @@ def main_momentum(ex,sym,dn,stop,tf,range_heatmap,period_ht,strength_ht):
             update_csv(date_end,bitkub_keep_day_from_now,data_full)
         
         except : #สร้าง ฐานข้อมูล ใหม่
-                      
-            wait_x = time.sleep(15)#input(' ......Put enter to receive new Market')
+            time.sleep(15)
+            #wait_x = input(' ......Put enter to receive new Market')
 
             #region ดึงข้อมูลมา แล้ว เขียนไฟล์ .csv
             
