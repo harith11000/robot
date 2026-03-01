@@ -181,11 +181,11 @@ def oled(power):
     draw = ImageDraw.Draw(image)
 
     # Load a font in 2 different sizes.
-    font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 28)
+    font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 22)
     font2 = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 14)
 
     # Draw the text
-    intro = "FANG SI"
+    intro = "LOVE FANG"
 
 
     batt = "BATT : "+power
