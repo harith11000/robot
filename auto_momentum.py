@@ -4232,11 +4232,12 @@ for sym in input_sym :
 
     main_funding(sym, total_funding)
 
+    '''
     for tf in input_bitkub_tf :
 
         Bitkub_mot(sym, tf)
         time.sleep(tx)
-
+        
         if tf != '1w' :
             
             main_future(sym, tf_bit_to_bin[tf], no_candles)
@@ -4248,7 +4249,8 @@ for sym in input_sym :
             use_arr_analise[sym] = {}
             use_arr_analise[sym]['last_funding'] = arr_1
             use_arr_analise[sym]['avg_funding'] = arr_2
-
+    '''
+        
     for tf in input_binance_tf :
 
         Binance_mot(sym, tf)
